@@ -118,7 +118,7 @@ class CurveDiscretizer {
 
 // Parses standard SVG path string data
 function parseSvgPath(pathData: string): any[][] {
-  const regex = /([a-df-zAz-DF-Z])|(-?\d*\.?\d+(?:[eE][-+]?\d+)?)/g;
+  const regex = /([a-df-zA-DF-Z])|(-?\d*\.?\d+(?:[eE][-+]?\d+)?)/g;
   const tokens: string[] = [];
   let match;
   while ((match = regex.exec(pathData)) !== null) {
@@ -133,7 +133,7 @@ function parseSvgPath(pathData: string): any[][] {
 
   while (i < tokens.length) {
     const token = tokens[i];
-    if (/[a-df-zAz-DF-Z]/.test(token)) {
+    if (/[a-df-zA-DF-Z]/.test(token)) {
       const cmd = token;
       i++;
 
