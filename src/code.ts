@@ -251,7 +251,7 @@ figma.ui.onmessage = async (msg) => {
   }
 
   if (msg.type === 'generate') {
-    const { size, gap, rotation, cap } = msg.params;
+    const { size, thickness, gap, rotation, cap } = msg.params;
     const selection = figma.currentPage.selection;
     const textNodes = selection.filter(n => n.type === 'TEXT') as TextNode[];
 
@@ -353,7 +353,7 @@ figma.ui.onmessage = async (msg) => {
           // Match styling, positioning, and colors
           newVector.name = `${textNode.name} (Dashed)`;
           newVector.strokes = textNode.fills; // Use fill color of text as stroke color
-          newVector.strokeWeight = 1.5;
+          newVector.strokeWeight = thickness;
           newVector.strokeCap = cap; // ROUND or NONE (which acts as FLAT)
           newVector.strokeJoin = 'ROUND';
 

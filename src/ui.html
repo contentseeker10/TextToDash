@@ -219,6 +219,16 @@
 
   <div class="form-group">
     <div class="label-container">
+      <span class="label-text">Dash Thickness</span>
+      <span class="label-val" id="thickness-val">2px</span>
+    </div>
+    <div class="slider-container">
+      <input type="range" id="thickness" min="1" max="20" value="2">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="label-container">
       <span class="label-text">Dash Gap</span>
       <span class="label-val" id="gap-val">3</span>
     </div>
@@ -254,10 +264,12 @@
 
   <script>
     const sizeInput = document.getElementById('size');
+    const thicknessInput = document.getElementById('thickness');
     const gapInput = document.getElementById('gap');
     const rotationInput = document.getElementById('rotation');
     
     const sizeVal = document.getElementById('size-val');
+    const thicknessVal = document.getElementById('thickness-val');
     const gapVal = document.getElementById('gap-val');
     const rotationVal = document.getElementById('rotation-val');
 
@@ -265,6 +277,7 @@
 
     // Synchronize slider displays
     sizeInput.oninput = () => sizeVal.textContent = sizeInput.value;
+    thicknessInput.oninput = () => thicknessVal.textContent = thicknessInput.value + 'px';
     gapInput.oninput = () => gapVal.textContent = gapInput.value;
     rotationInput.oninput = () => rotationVal.textContent = rotationInput.value + '°';
 
@@ -291,6 +304,7 @@
 
     document.getElementById('generate').onclick = () => {
       const size = parseInt(sizeInput.value, 10);
+      const thickness = parseInt(thicknessInput.value, 10);
       const gap = parseInt(gapInput.value, 10);
       const rotation = parseInt(rotationInput.value, 10);
 
@@ -299,6 +313,7 @@
           type: 'generate',
           params: {
             size,
+            thickness,
             gap,
             rotation,
             cap: selectedCap
