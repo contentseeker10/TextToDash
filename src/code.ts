@@ -155,7 +155,7 @@ function parseSvgPath(pathData: string): any[][] {
         const y = parseFloat(tokens[i++]);
         const targetPoint = cmd === 'l' ? { x: currentPoint.x + x, y: currentPoint.y + y } : { x, y };
         
-        currentContour.push({ type: 'line', start: { ...currentPoint }, end: targetPoint });
+        currentContour.push({ type: 'line', start: { x: currentPoint.x, y: currentPoint.y }, end: targetPoint });
         currentPoint = targetPoint;
       } 
       else if (cmd === 'C' || cmd === 'c') {
@@ -177,7 +177,7 @@ function parseSvgPath(pathData: string): any[][] {
           end = { x, y };
         }
 
-        currentContour.push({ type: 'cubic', start: { ...currentPoint }, ctrl1, ctrl2, end });
+        currentContour.push({ type: 'cubic', start: { x: currentPoint.x, y: currentPoint.y }, ctrl1, ctrl2, end });
         currentPoint = end;
       } 
       else if (cmd === 'Q' || cmd === 'q') {
@@ -195,14 +195,14 @@ function parseSvgPath(pathData: string): any[][] {
           end = { x, y };
         }
 
-        currentContour.push({ type: 'quadratic', start: { ...currentPoint }, ctrl, end });
+        currentContour.push({ type: 'quadratic', start: { x: currentPoint.x, y: currentPoint.y }, ctrl, end });
         currentPoint = end;
       } 
       else if (cmd === 'Z' || cmd === 'z') {
         if (currentPoint.x !== startPoint.x || currentPoint.y !== startPoint.y) {
-          currentContour.push({ type: 'line', start: { ...currentPoint }, end: { ...startPoint } });
+          currentContour.push({ type: 'line', start: { x: currentPoint.x, y: currentPoint.y }, end: { x: startPoint.x, y: startPoint.y } });
         }
-        currentPoint = { ...startPoint };
+        currentPoint = { x: startPoint.x, y: startPoint.y };
       }
     } else {
       // Implicit commands (e.g. repeated numbers after M or L)

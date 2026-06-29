@@ -26,6 +26,7 @@ async function run() {
     entryPoints: ['src/code.ts'],
     bundle: true,
     platform: 'browser',
+    target: 'es6',
     outfile: 'dist/code.js',
     minify: !watchMode,
     sourcemap: watchMode,
