@@ -1,9 +1,15 @@
 {
   "name": "Text to Dash",
-  "id": "1385412497645170369",
+  "id": "1653452036838177292",
   "api": "1.0.0",
   "main": "dist/code.js",
   "ui": "dist/ui.html",
+  "networkAccess": {
+    "allowedDomains": [
+      "none"
+    ]
+  },
+  "documentAccess": "dynamic-page",
   "editorType": [
     "figma"
   ]
