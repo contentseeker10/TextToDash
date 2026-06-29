@@ -1,22 +1,310 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
+  <title>Text to Dash Settings</title>
   <style>
-    body {
-      font-family: Inter, sans-serif;
-      padding: 16px;
+    :root {
+      --figma-color-bg: #ffffff;
+      --figma-color-text: #333333;
+      --figma-color-text-secondary: #888888;
+      --figma-color-border: #e6e6e6;
+      --figma-color-blue: #18a0fb;
+      --figma-color-blue-hover: #0c8ce9;
+      --figma-color-input-bg: #f5f5f5;
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --transition-fast: 0.15s ease;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      background: #ffffff;
-      color: #333333;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      background-color: var(--figma-color-bg);
+      color: var(--figma-color-text);
+      padding: 16px;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    h1 svg {
+      color: var(--figma-color-blue);
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .label-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      color: var(--figma-color-text);
+    }
+
+    .label-text {
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: var(--figma-color-text-secondary);
+    }
+
+    .label-val {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--figma-color-input-bg);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      color: var(--figma-color-text);
+      min-width: 32px;
+      text-align: center;
+    }
+
+    /* Sliders styling */
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--figma-color-border);
+      outline: none;
+      transition: background var(--transition-fast);
+    }
+
+    input[type="range"]:hover {
+      background: #d0d0d0;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--figma-color-blue);
+      cursor: pointer;
+      border: 2px solid var(--figma-color-bg);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      transition: transform var(--transition-fast), background var(--transition-fast);
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      background: var(--figma-color-blue-hover);
+    }
+
+    /* Segmented Control (Toggle Buttons) */
+    .segmented-control {
+      display: flex;
+      background: var(--figma-color-input-bg);
+      border-radius: var(--radius-md);
+      padding: 2px;
+      border: 1px solid var(--figma-color-border);
+    }
+
+    .segment-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      font-size: 10px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      color: var(--figma-color-text-secondary);
+      transition: all var(--transition-fast);
+      text-align: center;
+    }
+
+    .segment-btn.active {
+      background: var(--figma-color-bg);
+      color: var(--figma-color-text);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Footer & Buttons */
+    .footer {
+      margin-top: auto;
+      display: flex;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid var(--figma-color-border);
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all var(--transition-fast);
+      flex: 1;
+      outline: none;
+      text-align: center;
+    }
+
+    .btn-secondary {
+      background-color: var(--figma-color-bg);
+      border-color: var(--figma-color-border);
+      color: var(--figma-color-text);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--figma-color-input-bg);
+      border-color: #c0c0c0;
+    }
+
+    .btn-primary {
+      background-color: var(--figma-color-blue);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--figma-color-blue-hover);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
     }
   </style>
 </head>
 <body>
-  <h3>Text to Dash</h3>
-  <button id="cancel">Cancel</button>
+  <h1>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+    </svg>
+    Text to Dash Settings
+  </h1>
+
+  <div class="form-group">
+    <div class="label-container">
+      <span class="label-text">Dash Size</span>
+      <span class="label-val" id="size-val">4</span>
+    </div>
+    <div class="slider-container">
+      <input type="range" id="size" min="1" max="50" value="4">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="label-container">
+      <span class="label-text">Dash Gap</span>
+      <span class="label-val" id="gap-val">3</span>
+    </div>
+    <div class="slider-container">
+      <input type="range" id="gap" min="1" max="50" value="3">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="label-container">
+      <span class="label-text">Dash Rotation</span>
+      <span class="label-val" id="rotation-val">0°</span>
+    </div>
+    <div class="slider-container">
+      <input type="range" id="rotation" min="-180" max="180" value="0">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="label-container">
+      <span class="label-text">Cap Style</span>
+    </div>
+    <div class="segmented-control">
+      <button class="segment-btn active" id="cap-round" data-cap="ROUND">Round</button>
+      <button class="segment-btn" id="cap-flat" data-cap="FLAT">Flat</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button class="btn btn-secondary" id="cancel">Cancel</button>
+    <button class="btn btn-primary" id="generate">Generate</button>
+  </div>
+
   <script>
+    const sizeInput = document.getElementById('size');
+    const gapInput = document.getElementById('gap');
+    const rotationInput = document.getElementById('rotation');
+    
+    const sizeVal = document.getElementById('size-val');
+    const gapVal = document.getElementById('gap-val');
+    const rotationVal = document.getElementById('rotation-val');
+
+    let selectedCap = 'ROUND';
+
+    // Synchronize slider displays
+    sizeInput.oninput = () => sizeVal.textContent = sizeInput.value;
+    gapInput.oninput = () => gapVal.textContent = gapInput.value;
+    rotationInput.oninput = () => rotationVal.textContent = rotationInput.value + '°';
+
+    // Cap style toggles
+    const roundBtn = document.getElementById('cap-round');
+    const flatBtn = document.getElementById('cap-flat');
+
+    roundBtn.onclick = () => {
+      roundBtn.classList.add('active');
+      flatBtn.classList.remove('active');
+      selectedCap = 'ROUND';
+    };
+
+    flatBtn.onclick = () => {
+      flatBtn.classList.add('active');
+      roundBtn.classList.remove('active');
+      selectedCap = 'FLAT';
+    };
+
+    // Action handlers
     document.getElementById('cancel').onclick = () => {
       parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+    };
+
+    document.getElementById('generate').onclick = () => {
+      const size = parseInt(sizeInput.value, 10);
+      const gap = parseInt(gapInput.value, 10);
+      const rotation = parseInt(rotationInput.value, 10);
+
+      parent.postMessage({ 
+        pluginMessage: { 
+          type: 'generate',
+          params: {
+            size,
+            gap,
+            rotation,
+            cap: selectedCap
+          }
+        } 
+      }, '*');
     };
   </script>
 </body>
