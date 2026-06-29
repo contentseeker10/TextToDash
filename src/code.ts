@@ -354,7 +354,7 @@ figma.ui.onmessage = async (msg) => {
           newVector.name = `${textNode.name} (Dashed)`;
           newVector.strokes = textNode.fills; // Use fill color of text as stroke color
           newVector.strokeWeight = thickness;
-          newVector.strokeCap = cap; // ROUND or NONE (which acts as FLAT)
+          newVector.strokeCap = cap === 'FLAT' ? 'NONE' : cap; // ROUND or NONE (which acts as FLAT)
           newVector.strokeJoin = 'ROUND';
 
           // Shift the new vector node slightly to the right/down so it is next to the original

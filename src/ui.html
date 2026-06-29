@@ -253,7 +253,7 @@
     </div>
     <div class="segmented-control">
       <button class="segment-btn active" id="cap-round" data-cap="ROUND">Round</button>
-      <button class="segment-btn" id="cap-flat" data-cap="FLAT">Flat</button>
+      <button class="segment-btn" id="cap-flat" data-cap="NONE">Flat</button>
     </div>
   </div>
 
@@ -294,7 +294,7 @@
     flatBtn.onclick = () => {
       flatBtn.classList.add('active');
       roundBtn.classList.remove('active');
-      selectedCap = 'FLAT';
+      selectedCap = 'NONE';
     };
 
     // Action handlers
