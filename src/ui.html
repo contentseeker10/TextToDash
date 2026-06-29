@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Inter, sans-serif;
+      padding: 16px;
+      margin: 0;
+      background: #ffffff;
+      color: #333333;
+    }
+  </style>
+</head>
+<body>
+  <h3>Text to Dash</h3>
+  <button id="cancel">Cancel</button>
+  <script>
+    document.getElementById('cancel').onclick = () => {
+      parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+    };
+  </script>
+</body>
+</html>
